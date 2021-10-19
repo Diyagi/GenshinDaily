@@ -1,11 +1,11 @@
 from GenshinDaily.classes.GenshinAPI import GenshinAPI
 
+
 class Rewards:
-    
+
     def __init__(self, genshin: GenshinAPI):
         self.genshin = genshin
         self.parseRewards()
-
 
     def parseRewards(self):
         fetchRewardInfo = self.genshin.fetchStatus()
@@ -13,9 +13,9 @@ class Rewards:
 
         self.check = fetchRewardInfo['data']['is_sign']
 
-        if self.check: 
+        if self.check:
             self.day = fetchRewardInfo['data']['total_sign_day']-1
-        else: 
+        else:
             self.day = fetchRewardInfo['data']['total_sign_day']
 
         parsed = fetchReward['data']['awards'][self.day]
@@ -26,7 +26,7 @@ class Rewards:
 
     def isClaimed(self) -> bool:
         return self.check
-    
+
     def getName(self) -> str:
         return self.name
 

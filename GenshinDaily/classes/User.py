@@ -3,9 +3,11 @@ from GenshinDaily.classes.Discord import discord
 from GenshinDaily.classes.Rewards import Rewards
 from GenshinDaily.classes.utils.parseCookie import parseCookie
 
+
 class UserSettings:
 
-    def __init__(self,
+    def __init__(
+            self,
             cookies: str,
             webhook: str = None,
             nickname: str = None,
@@ -33,8 +35,13 @@ class User:
         self.fetchUser()
 
         if self.settings.webhook is not None:
-            self.discord = discord(self.settings.webhook, self.settings.nickname, self.settings.avatar, self.settings.uid)
-    
+            self.discord = discord(
+                self.settings.webhook,
+                self.settings.nickname,
+                self.settings.avatar,
+                self.settings.uid
+            )
+
     def fetchUser(self):
         if self.settings.nickname is None or self.settings.uid is None:
             apiResponse = self.genshin.fetchUserGameInfo()

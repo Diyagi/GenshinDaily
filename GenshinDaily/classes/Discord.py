@@ -1,4 +1,4 @@
-class discord: 
+class discord:
 
     def __init__(
         self,

@@ -1,5 +1,6 @@
 import requests
 
+
 class GenshinAPI:
 
     def __init__(
@@ -124,7 +125,12 @@ class GenshinAPI:
 
     def fetchApiData(self, apiLink, headers, params):
         try:
-            data = requests.get(apiLink, headers=headers, params=params, cookies=self.cookies)
+            data = requests.get(
+                apiLink,
+                headers=headers,
+                params=params,
+                cookies=self.cookies
+            )
             response = data.json()
 
             if response['retcode'] != 0:
@@ -132,16 +138,22 @@ class GenshinAPI:
                     raise Exception('Login failed, wrong cookie ?')
                 else:
                     raise Exception(f'Genshin API Retcode error: ${response}')
-                    
+
             return response
         except requests.exceptions.ConnectionError as e:
             raise Exception(f'API GET Connection Error: \n - {e}')
         except Exception as e:
             raise Exception(f'API GET Connection Error: \n - {e}')
 
-    def postApiData(self, apiLink, headers, params, data = None):
+    def postApiData(self, apiLink, headers, params, data=None):
         try:
-            data = requests.post(apiLink, headers=headers, params=params, json=data, cookies=self.cookies)
+            data = requests.post(
+                apiLink,
+                headers=headers,
+                params=params,
+                json=data,
+                cookies=self.cookies
+            )
             response = data.json()
 
             if response['retcode'] != 0:

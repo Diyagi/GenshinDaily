@@ -1,5 +1,5 @@
 from GenshinDaily.classes.User import User
-from GenshinDaily.classes.utils.parseCookie import parseCookie
+
 
 class GenshinDaily:
 
