@@ -4,13 +4,6 @@ from GenshinDaily.classes.Rewards import Rewards
 from GenshinDaily.classes.utils.parseCookie import parseCookie
 
 class UserSettings:
-    __slots__ = [
-        "cookies",
-        "webhook",
-        "nickname",
-        "avatar",
-        "uid"	
-    ]
 
     def __init__(self,
             cookies: str,
@@ -27,11 +20,6 @@ class UserSettings:
 
 
 class User:
-    __slots__ = [
-        "settings",
-        "genshin",
-        "reward"
-    ]
 
     def __init__(
         self,

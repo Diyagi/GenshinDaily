@@ -1,10 +1,6 @@
 import requests
 
 class GenshinAPI:
-    __slots__ =  [
-        "cookies",
-        "actid"
-    ]
 
     def __init__(
         self,

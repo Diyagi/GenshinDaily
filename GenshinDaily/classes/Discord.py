@@ -1,10 +1,4 @@
 class discord: 
-    __slots__ = [
-        "webhook",
-        "nickname",
-        "avatar",
-        "uid",
-    ]
 
     def __init__(
         self,

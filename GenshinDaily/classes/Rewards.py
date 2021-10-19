@@ -1,15 +1,7 @@
 from GenshinDaily.classes.GenshinAPI import GenshinAPI
 
 class Rewards:
-    __slots__ = [
-        "genshin",
-        "check",
-        "day",
-        "icon",
-        "name",
-        "count"
-    ]
-
+    
     def __init__(self, genshin: GenshinAPI):
         self.genshin = genshin
         self.parseRewards()
