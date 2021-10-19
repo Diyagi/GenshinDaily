@@ -2,31 +2,22 @@ from GenshinDaily.classes.User import User
 from GenshinDaily.classes.utils.parseCookie import parseCookie
 
 class GenshinDaily:
-    __slots__ = [
-        "cookie",
-        "webhook",
-        "avatar",
-        "nickname",
-        "uid",
-        "user"
-    ]
 
     def __init__(
             self,
-            cookie: str,
-            webhook: str = None,
-            avatar: str = None,
-            nickname: str = None,
-            uid: str = None
-        ) -> None:
+            usersSettings: list = []
+        ):
 
-        self.cookie = parseCookie(cookie)
+        self.run(usersSettings)
 
-        self.user = User(self.cookie, webhook, avatar, nickname, uid)
-        self.tryClaim()
-
-    def tryClaim(self):
-        if self.user.reward.isClaimed():
-            print('Already claimed')
-        else:
-            self.user.reward.claimReward()
+    def run(self, usersSettings: list = []):
+        for userSetting in usersSettings:
+            try:
+                user = User(userSetting)
+                if user.reward.isClaimed():
+                    print(f'[{user.getNickname()}] Already claimed')
+                else:
+                    user.reward.claimReward()
+                    print(f'[{user.getNickname()}] Claimed {user.reward.getName()}')
+            except Exception as e:
+                print(f"User Instance error:\n - {e}")

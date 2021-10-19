@@ -1,4 +1,14 @@
 from GenshinDaily.GenshinDaily import GenshinDaily
+from GenshinDaily.classes.User import UserSettings
 
-GenshinDaily("cookie")
-GenshinDaily("cookie")
+GenshinDaily([
+    UserSettings(
+        cookies="lyon",
+    ),
+    UserSettings(
+        cookies="pepe"
+    ),
+    UserSettings(
+        cookies="charles"
+    )
+])

@@ -133,17 +133,15 @@ class GenshinAPI:
 
             if response['retcode'] != 0:
                 if response['retcode'] == -100:
-                    raise('Login failed, wrong cookie ?')
+                    raise Exception('Login failed, wrong cookie ?')
                 else:
-                    raise(f'Genshin API Retcode error: ${response}')
+                    raise Exception(f'Genshin API Retcode error: ${response}')
                     
             return response
         except requests.exceptions.ConnectionError as e:
-            print(f"API GET Connection Error! {e}")
-            raise 'API GET Connection Error!\n' + repr(e)
+            raise Exception(f'API GET Connection Error: \n - {e}')
         except Exception as e:
-            print(f"API GET Unknown error! {e}")
-            raise 'API GET Connection Error!\n' + repr(e)
+            raise Exception(f'API GET Connection Error: \n - {e}')
 
     def postApiData(self, apiLink, headers, params, data = None):
         try:
@@ -152,14 +150,12 @@ class GenshinAPI:
 
             if response['retcode'] != 0:
                 if response['retcode'] == -100:
-                    raise('Login failed, wrong cookie ?')
+                    raise Exception('Login failed, wrong cookie ?')
                 else:
-                    raise(f'Genshin API Retcode error: ${response}')
+                    raise Exception(f'Genshin API Retcode error: ${response}')
 
             return response
         except requests.exceptions.ConnectionError as e:
-            print(f"API POST Connection Error! {e}")
-            raise 'API POST Connection Error!\n' + repr(e)
+            raise Exception(f'API POST Connection Error: \n - {e}')
         except Exception as e:
-            print(f"API POST Unknown error! {e}")
-            raise 'API POST Connection Error!\n' + repr(e)
+            raise Exception(f'API POST Connection Error: \n - {e}')
