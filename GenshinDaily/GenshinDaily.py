@@ -5,19 +5,27 @@ class GenshinDaily:
 
     def __init__(
             self,
-            usersSettings: list = []
+            users
         ):
 
-        self.run(usersSettings)
+        self.run(users)
 
-    def run(self, usersSettings: list = []):
-        for userSetting in usersSettings:
+    def run(self, users):
+        user: User
+        for user in users:
             try:
-                user = User(userSetting)
                 if user.reward.isClaimed():
-                    print(f'[{user.getNickname()}] Already claimed')
+                    print(f'\n[{user.getNickname()}] Already claimed')
                 else:
                     user.reward.claimReward()
-                    print(f'[{user.getNickname()}] Claimed {user.reward.getName()}')
+                    print(f'\n[{user.getNickname()}] Claimed {user.reward.getName()}')
             except Exception as e:
                 print(f"User Instance error:\n - {e}")
+
+
+def getAvailableUsers(users: list):
+    for user in users:
+        try:
+            yield User(**user)
+        except BaseException as e:
+            print(f"User Instance error:\n - {e}")

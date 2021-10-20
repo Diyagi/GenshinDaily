@@ -1,14 +1,17 @@
-from GenshinDaily.GenshinDaily import GenshinDaily
-from GenshinDaily.classes.User import UserSettings
+from GenshinDaily.GenshinDaily import GenshinDaily, getAvailableUsers
 
-GenshinDaily([
-    UserSettings(
-        cookies="lyon",
-    ),
-    UserSettings(
-        cookies="pepe"
-    ),
-    UserSettings(
-        cookies="charles"
-    )
-])
+
+GenshinDaily(
+    getAvailableUsers([
+        {
+            'cookies': "pepe",
+            'webhook': "noelle"
+        },
+        {
+            'cookies': "charles"
+        },
+        {
+            'cookies': "lyon"
+        }
+    ])
+)

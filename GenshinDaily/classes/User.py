@@ -4,61 +4,52 @@ from GenshinDaily.classes.Rewards import Rewards
 from GenshinDaily.classes.utils.parseCookie import parseCookie
 
 
-class UserSettings:
+class User:
 
     def __init__(
-            self,
-            cookies: str,
-            webhook: str = None,
-            nickname: str = None,
-            avatar: str = None,
-            uid: str = None
-        ):
+        self,
+        cookies: str,
+        webhook: str = None,
+        nickname: str = None,
+        avatar: str = None,
+        uid: str = None
+    ):
+
         self.cookies = parseCookie(cookies)
         self.webhook = webhook
         self.nickname = nickname
         self.avatar = avatar
         self.uid = uid
-
-
-class User:
-
-    def __init__(
-        self,
-        settings: UserSettings
-    ):
-
-        self.settings = settings
-        self.genshin = GenshinAPI(self.settings.cookies)
+        self.genshin = GenshinAPI(self.cookies)
         self.reward = Rewards(self.genshin)
 
         self.fetchUser()
 
-        if self.settings.webhook is not None:
+        if self.webhook is not None:
             self.discord = discord(
-                self.settings.webhook,
-                self.settings.nickname,
-                self.settings.avatar,
-                self.settings.uid
+                self.webhook,
+                self.nickname,
+                self.avatar,
+                self.uid
             )
 
     def fetchUser(self):
-        if self.settings.nickname is None or self.settings.uid is None:
+        if self.nickname is None or self.uid is None:
             apiResponse = self.genshin.fetchUserGameInfo()
             parsed = apiResponse['data']['list'][0]
-            self.settings.uid = parsed['game_uid']
-            self.settings.nickname = parsed['nickname']
+            self.uid = parsed['game_uid']
+            self.nickname = parsed['nickname']
 
-        if self.settings.avatar is None:
+        if self.avatar is None:
             apiResponse = self.genshin.fetchUserFullInfo()
             if apiResponse['retcode'] == 0:
-                self.settings.avatar = apiResponse['data']['user_info']['avatar_url']
+                self.avatar = apiResponse['data']['user_info']['avatar_url']
 
     def getNickname(self) -> str:
-        return self.settings.nickname
+        return self.nickname
 
     def getUID(self) -> str:
-        return self.settings.uid
+        return self.uid
 
     def getAvatar(self) -> str:
-        return self.settings.avatar
+        return self.avatar
