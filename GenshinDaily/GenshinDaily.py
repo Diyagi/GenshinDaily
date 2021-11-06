@@ -1,3 +1,4 @@
+from GenshinDaily.classes.Logger import Logger
 from GenshinDaily.classes.User import User
 
 
@@ -7,7 +8,7 @@ class GenshinDaily:
             self,
             users
         ):
-
+        self.logger = Logger.getLogger()
         self.run(users)
 
     def run(self, users):
@@ -15,17 +16,18 @@ class GenshinDaily:
         for user in users:
             try:
                 if user.reward.isClaimed():
-                    print(f'\n[{user.getNickname()}] Already claimed')
+                    user.log.info('Already claimed\n')
                 else:
                     user.reward.claimReward()
-                    print(f'\n[{user.getNickname()}] Claimed {user.reward.getName()}')
+                    user.log.info(f'Claimed {user.reward.getName()}\n')
             except Exception as e:
                 print(f"User Instance error:\n - {e}")
 
 
 def getAvailableUsers(users: list):
+    logger = Logger.getLogger()
     for user in users:
         try:
             yield User(**user)
-        except BaseException as e:
-            print(f"User Instance error:\n - {e}")
+        except Exception as e:
+            logger.error(f'{e}\n')

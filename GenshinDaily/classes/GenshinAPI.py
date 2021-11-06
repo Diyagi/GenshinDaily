@@ -1,3 +1,4 @@
+from GenshinDaily.classes.Logger import Logger
 import requests
 
 
@@ -5,10 +6,11 @@ class GenshinAPI:
 
     def __init__(
         self,
-        cookies: str,
+        cookies: dict
     ):
         self.actid = 'e202102251931481'
         self.cookies = cookies
+        self.logger = Logger.getLogger(self.cookies['account_id'])
 
     def fetchUserFullInfo(self):
         headers = {
@@ -124,6 +126,7 @@ class GenshinAPI:
         return response
 
     def fetchApiData(self, apiLink, headers, params):
+        self.logger.debug(f'Fetching API Data From: {apiLink}')
         try:
             data = requests.get(
                 apiLink,
@@ -141,11 +144,12 @@ class GenshinAPI:
 
             return response
         except requests.exceptions.ConnectionError as e:
-            raise Exception(f'API GET Connection Error: \n - {e}')
+            raise ValueError(f'API GET Connection Error: \n - {e}')
         except Exception as e:
-            raise Exception(f'API GET Connection Error: \n - {e}')
+            raise ValueError(f'API GET Connection Error: \n - {e}')
 
     def postApiData(self, apiLink, headers, params, data=None):
+        self.logger.debug(f'Posting API Data To: {apiLink}')
         try:
             data = requests.post(
                 apiLink,
@@ -164,6 +168,6 @@ class GenshinAPI:
 
             return response
         except requests.exceptions.ConnectionError as e:
-            raise Exception(f'API POST Connection Error: \n - {e}')
+            raise ValueError(f'API POST Connection Error: \n - {e}')
         except Exception as e:
-            raise Exception(f'API POST Connection Error: \n - {e}')
+            raise ValueError(f'API POST Connection Error: \n - {e}')

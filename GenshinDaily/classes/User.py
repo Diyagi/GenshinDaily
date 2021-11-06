@@ -1,7 +1,8 @@
 from GenshinDaily.classes.GenshinAPI import GenshinAPI
 from GenshinDaily.classes.Discord import discord
 from GenshinDaily.classes.Rewards import Rewards
-from GenshinDaily.classes.utils.parseCookie import parseCookie
+from GenshinDaily.classes.Logger import Logger
+from GenshinDaily.classes.utils.parseAndCheckCookies import parseAndCheckCookies
 
 
 class User:
@@ -14,16 +15,20 @@ class User:
         avatar: str = None,
         uid: str = None
     ):
+        self.cookies = parseAndCheckCookies(cookies)
 
-        self.cookies = parseCookie(cookies)
         self.webhook = webhook
         self.nickname = nickname
         self.avatar = avatar
         self.uid = uid
+
+        self.log = Logger.getLogger(self.cookies['account_id'])
+
         self.genshin = GenshinAPI(self.cookies)
-        self.reward = Rewards(self.genshin)
 
         self.fetchUser()
+
+        self.reward = Rewards(self.genshin)
 
         if self.webhook is not None:
             self.discord = discord(
@@ -44,6 +49,8 @@ class User:
             apiResponse = self.genshin.fetchUserFullInfo()
             if apiResponse['retcode'] == 0:
                 self.avatar = apiResponse['data']['user_info']['avatar_url']
+
+        self.log.setSuffix(self.nickname)
 
     def getNickname(self) -> str:
         return self.nickname
