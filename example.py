@@ -1,17 +1,15 @@
-from GenshinDaily.GenshinDaily import GenshinDaily, getAvailableUsers
+from GenshinDaily.GenshinDaily import GenshinDaily
+from GenshinDaily.classes.User import User
 
-
-GenshinDaily(
-    getAvailableUsers([
-        {
-            'cookies': "pepe",
-            'webhook': "noelle"
-        },
-        {
-            'cookies': "charles"
-        },
-        {
-            'cookies': "lyon"
-        }
-    ])
-)
+GenshinDaily([
+    User(
+        cookies = 'cookie',
+        webhook = "webhook url"
+    ),
+    User(
+        cookies = 'cookie',
+    ),
+    User(
+        cookies = 'cookie',
+    )
+])

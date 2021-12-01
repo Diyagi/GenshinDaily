@@ -1,4 +1,4 @@
-from GenshinDaily.classes.Logger import Logger
+import logging
 import requests
 
 
@@ -6,11 +6,12 @@ class GenshinAPI:
 
     def __init__(
         self,
-        cookies: dict
+        cookies: dict,
+        logger: logging.LoggerAdapter
     ):
         self.actid = 'e202102251931481'
         self.cookies = cookies
-        self.logger = Logger.getLogger(self.cookies['account_id'])
+        self.logger = logger
 
     def fetchUserFullInfo(self):
         headers = {

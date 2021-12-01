@@ -1,13 +1,16 @@
+import logging
 from GenshinDaily.classes.GenshinAPI import GenshinAPI
 
 
 class Rewards:
 
-    def __init__(self, genshin: GenshinAPI):
+    def __init__(self, genshin: GenshinAPI, log: logging.LoggerAdapter):
         self.genshin = genshin
+        self.log = log
         self.parseRewards()
 
     def parseRewards(self):
+        self.log.info('Trying to fetch user rewards info...')
         fetchRewardInfo = self.genshin.fetchStatus()
         fetchReward = self.genshin.fetchReward()
 

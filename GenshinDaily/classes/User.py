@@ -1,7 +1,7 @@
+import logging
 from GenshinDaily.classes.GenshinAPI import GenshinAPI
 from GenshinDaily.classes.Discord import discord
 from GenshinDaily.classes.Rewards import Rewards
-from GenshinDaily.classes.Logger import Logger
 from GenshinDaily.classes.utils.parseAndCheckCookies import parseAndCheckCookies
 
 
@@ -22,13 +22,9 @@ class User:
         self.avatar = avatar
         self.uid = uid
 
-        self.log = Logger.getLogger(self.cookies['account_id'])
+        self.log = self.setupLogger()
 
-        self.genshin = GenshinAPI(self.cookies)
-
-        self.fetchUser()
-
-        self.reward = Rewards(self.genshin)
+        self.genshin = GenshinAPI(self.cookies, self.log)
 
         if self.webhook is not None:
             self.discord = discord(
@@ -38,7 +34,19 @@ class User:
                 self.uid
             )
 
-    def fetchUser(self):
+    def setupLogger(self):
+        accID = self.cookies['account_id']
+        extra = {'userid': self.nickname or accID}
+
+        logger = logging.getLogger(accID)
+        logger.setLevel(logging.DEBUG)
+
+        logger = logging.LoggerAdapter(logger, extra)
+
+        return logger
+
+    def setupUser(self):
+        self.log.info('Trying to fetch user data...')
         if self.nickname is None or self.uid is None:
             apiResponse = self.genshin.fetchUserGameInfo()
             parsed = apiResponse['data']['list'][0]
@@ -50,7 +58,8 @@ class User:
             if apiResponse['retcode'] == 0:
                 self.avatar = apiResponse['data']['user_info']['avatar_url']
 
-        self.log.setSuffix(self.nickname)
+        self.log.extra = {'userid': self.nickname}
+        self.reward = Rewards(self.genshin, self.log)
 
     def getNickname(self) -> str:
         return self.nickname
