@@ -1,11 +1,11 @@
 import datetime
 import logging
 from tornado.log import LogFormatter
-from GenshinDaily.classes.User import User
-from GenshinDaily.classes.utils.createDirifNotExists import createDir
+from HonkaiDaily.classes.User import User
+from HonkaiDaily.classes.utils.createDirifNotExists import createDir
 
 
-class GenshinDaily:
+class HonkaiDaily:
 
     def __init__(
             self,

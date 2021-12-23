@@ -2,14 +2,14 @@ import logging
 import requests
 
 
-class GenshinAPI:
+class HonkaiAPI:
 
     def __init__(
         self,
         cookies: dict,
         logger: logging.LoggerAdapter
     ):
-        self.actid = 'e202102251931481'
+        self.actid = 'e202110291205111'
         self.cookies = cookies
         self.logger = logger
 
@@ -70,7 +70,7 @@ class GenshinAPI:
         )
 
         response = self.fetchApiData(
-            'https://hk4e-api-os.mihoyo.com/event/sol/home',
+            'https://api-os-takumi.mihoyo.com/event/mani/home',
             headers,
             params
         )
@@ -83,7 +83,7 @@ class GenshinAPI:
             'Accept-Language': 'en-US,en;q=0.5',
             'Origin': 'https://webstatic-sea.mihoyo.com',
             'Connection': 'keep-alive',
-            'Referer': f'https://webstatic-sea.mihoyo.com/ys/event/signin-sea/index.html?act_id={self.actid}&lang=en-us',
+            'Referer': f'https://webstatic-sea.mihoyo.com/bbs/event/signin-bh3/index.html?act_id={self.actid}&lang=en-us',
             'Cache-Control': 'max-age=0',
         }
         params = (
@@ -92,7 +92,7 @@ class GenshinAPI:
         )
 
         response = self.fetchApiData(
-            'https://hk4e-api-os.mihoyo.com/event/sol/info',
+            'https://api-os-takumi.mihoyo.com/event/mani/info',
             headers,
             params
         )
@@ -106,7 +106,7 @@ class GenshinAPI:
             'Content-Type': 'application/json;charset=utf-8',
             'Origin': 'https://webstatic-sea.mihoyo.com',
             'Connection': 'keep-alive',
-            'Referer': f'https://webstatic-sea.mihoyo.com/ys/event/signin-sea/index.html?act_id={self.actid}&lang=en-us',
+            'Referer': f'https://webstatic-sea.mihoyo.com/bbs/event/signin-bh3/index.html?act_id={self.actid}&lang=en-us',
         }
 
         params = (
@@ -118,7 +118,7 @@ class GenshinAPI:
         }
 
         response = self.postApiData(
-            'https://hk4e-api-os.mihoyo.com/event/sol/sign',
+            'https://api-os-takumi.mihoyo.com/event/mani/sign',
             headers,
             params,
             data

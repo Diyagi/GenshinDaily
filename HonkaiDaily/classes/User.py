@@ -1,8 +1,8 @@
 import logging
-from GenshinDaily.classes.GenshinAPI import GenshinAPI
-from GenshinDaily.classes.Discord import discord
-from GenshinDaily.classes.Rewards import Rewards
-from GenshinDaily.classes.utils.parseAndCheckCookies import parseAndCheckCookies
+from HonkaiDaily.classes.HonkaiAPI import HonkaiAPI
+from HonkaiDaily.classes.Discord import discord
+from HonkaiDaily.classes.Rewards import Rewards
+from HonkaiDaily.classes.utils.parseAndCheckCookies import parseAndCheckCookies
 
 
 class User:
@@ -24,7 +24,7 @@ class User:
 
         self.log = self.setupLogger()
 
-        self.genshin = GenshinAPI(self.cookies, self.log)
+        self.genshin = HonkaiAPI(self.cookies, self.log)
 
         if self.webhook is not None:
             self.discord = discord(

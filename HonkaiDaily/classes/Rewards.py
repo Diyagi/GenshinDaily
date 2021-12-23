@@ -1,10 +1,10 @@
 import logging
-from GenshinDaily.classes.GenshinAPI import GenshinAPI
+from HonkaiDaily.classes.HonkaiAPI import HonkaiAPI
 
 
 class Rewards:
 
-    def __init__(self, genshin: GenshinAPI, log: logging.LoggerAdapter):
+    def __init__(self, genshin: HonkaiAPI, log: logging.LoggerAdapter):
         self.genshin = genshin
         self.log = log
         self.parseRewards()

@@ -1,7 +1,7 @@
-from GenshinDaily.GenshinDaily import GenshinDaily
-from GenshinDaily.classes.User import User
+from HonkaiDaily.HonkaiDaily import HonkaiDaily
+from HonkaiDaily.classes.User import User
 
-GenshinDaily([
+HonkaiDaily([
     User(
         cookies = 'cookie',
         webhook = "webhook url"
